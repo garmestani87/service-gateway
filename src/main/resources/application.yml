@@ -1,0 +1,64 @@
+# ***** app config *****
+spring:
+  application:
+    name: SERVICE-GATEWAY
+  cloud:
+    consul:
+      enabled: false
+  output.ansi.enabled: ALWAYS
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+server:
+  port: 8093
+---
+spring:
+  profiles:
+    active: @spring.profiles.active@
+logging:
+  level:
+    org.apache.camel: info
+external:
+  path: "/root/config"
+# ***** camel config *****
+---
+camel:
+  servlet:
+    mapping:
+      context-path: /service-gateway/*
+# ***** redis config *****
+---
+spring:
+  redis:
+    host: localhost
+    port: 6379
+# ***** zipkin config *****
+---
+spring:
+  zipkin:
+    enabled: false
+---
+spring:
+  cloud:
+    vault:
+      enabled: false
+
+#spring:
+#  zipkin:
+#    base-url: http://localhost:9411/
+#  sleuth:
+#    sampler:
+#      probability: 1
+# ***** vault config *****
+
+#spring:
+#  cloud:
+#    vault:
+#      host: localhost
+#      port: 8200
+#      scheme: http
+#      uri: http://localhost:8200
+#      connection-timeout: 5000
+#      read-timeout: 15000
+#      authentication: TOKEN
+#      token: garm@35
